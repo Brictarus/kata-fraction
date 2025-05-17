@@ -15,6 +15,14 @@ export class Fraction {
   }
 
   static of(numerator: number, denominator: number = 1): Fraction {
+    this.checkCreationRules(denominator, numerator);
+    if (numerator === 0) {
+      return this.ZERO;
+    }
+    return new Fraction(numerator, denominator);
+  }
+
+  private static checkCreationRules(denominator: number, numerator: number) {
     if (denominator === 0) {
       throw new Error("Denominator cannot be 0");
     }
@@ -24,10 +32,6 @@ export class Fraction {
     if (!this.isInteger(denominator)) {
       throw new Error("Denominator must be an integer");
     }
-    if (numerator === 0) {
-      return this.ZERO;
-    }
-    return new Fraction(numerator, denominator);
   }
 
   plus(fraction: Fraction): Fraction {
@@ -44,11 +48,19 @@ export class Fraction {
     }
   }
 
+  minus(fraction: Fraction): Fraction {
+    return this.plus(this.opposite(fraction));
+  }
+
   toString(): string {
     if (this.denominator == 1) {
       return this.numerator.toString();
     }
     return `${this.numerator}/${this.denominator}`;
+  }
+
+  private opposite(fraction: Fraction) {
+    return Fraction.of(-fraction.numerator, fraction.denominator);
   }
 
   private static isInteger(num: number): boolean {

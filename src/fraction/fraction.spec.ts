@@ -61,4 +61,11 @@ describe("Fraction", () => {
       expect(addition.toString()).toEqual("5/6");
     });
   });
+
+  describe("minus", () => {
+    it("should subtract", () => {
+      const subtraction = Fraction.of(5).minus(Fraction.of(3));
+      expect(subtraction.toString()).toEqual("2");
+    });
+  });
 });
