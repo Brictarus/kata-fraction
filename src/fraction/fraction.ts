@@ -15,6 +15,15 @@ export class Fraction {
   }
 
   static of(numerator: number, denominator: number = 1): Fraction {
+    if (denominator === 0) {
+      throw new Error("Denominator cannot be 0");
+    }
+    if (!this.isInteger(numerator)) {
+      throw new Error("Numerator must be an integer");
+    }
+    if (!this.isInteger(denominator)) {
+      throw new Error("Denominator must be an integer");
+    }
     if (numerator === 0) {
       return this.ZERO;
     }
@@ -40,5 +49,9 @@ export class Fraction {
       return this.numerator.toString();
     }
     return `${this.numerator}/${this.denominator}`;
+  }
+
+  private static isInteger(num: number): boolean {
+    return Math.floor(num) === num;
   }
 }

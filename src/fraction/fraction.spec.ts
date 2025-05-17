@@ -2,6 +2,24 @@ import { describe, expect, it } from "vitest";
 import { Fraction } from "./fraction.ts";
 
 describe("Fraction", () => {
+  describe("creation rules", () => {
+    it("should fail if denominator is 0", () => {
+      expect(() => Fraction.of(1, 0)).toThrowError("Denominator cannot be 0");
+    });
+
+    it("should fail if numerator is not an integer", () => {
+      expect(() => Fraction.of(1.12)).toThrowError(
+        "Numerator must be an integer",
+      );
+    });
+
+    it("should fail if denominator is not an integer", () => {
+      expect(() => Fraction.of(5, 1.12)).toThrowError(
+        "Denominator must be an integer",
+      );
+    });
+  });
+
   describe("plus", () => {
     it("0 + 0 = 0", () => {
       const addition = Fraction.of(0).plus(Fraction.of(0));
